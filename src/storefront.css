@@ -370,16 +370,68 @@ html, body { background: #fbeab8; color: #111; }
   .site-header .header-logo { width: 220px; height: 66px; }
   .site-header .header-actions a.desktop-only { display: inline-flex; }
   .tabbar { display: none; }
-  .campaign { height: calc(100vh - 86px); min-height: 640px; }
-  .side-kicker { right: 8vw; font-size: 22px; max-width: 160px; }
-  .hero-bottom { left: 6vw; right: 6vw; bottom: 48px; font-size: 64px; }
-  .cat-tile { min-height: 240px; }
-  .cat-tile img, .cat-tile .ph { height: 180px; }
+  .campaign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 86px);
+    min-height: 560px;
+    max-height: 920px;
+    background: var(--wash);
+    overflow: hidden;
+  }
+  .campaign img,
+  .campaign .ph {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
+  .side-kicker { right: 24px; font-size: 22px; max-width: 160px; color: #111; }
+  .hero-bottom { left: 24px; right: 24px; bottom: 28px; font-size: clamp(32px, 4vw, 56px); color: #111; }
+  .campaign-arrow { color: #111; }
+  .cat-tile { min-height: 0; }
+  .cat-tile img,
+  .cat-tile .ph {
+    width: min(100%, 340px);
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+  }
   .cat-tile span { font-size: 14px; }
-  .size-banner { grid-template-columns: 1fr 220px 1fr; min-height: 180px; }
-  .size-banner img, .size-banner .ph { width: 220px; height: 180px; }
+  .size-banner { grid-template-columns: 1fr minmax(220px, 340px) 1fr; min-height: 0; }
+  .size-banner img,
+  .size-banner .ph {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+  }
   .size-banner strong { font-size: 22px; }
-  .mid-banner { height: 460px; }
+  .mid-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: min(72vh, 760px);
+    background: var(--wash);
+    overflow: hidden;
+  }
+  .mid-banner img,
+  .mid-banner .ph {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center center;
+    opacity: 1;
+  }
   .trend { padding-bottom: 80px; }
   .storefront .grid { grid-template-columns: repeat(4, 1fr); padding: 16px 20px 0; }
 }
