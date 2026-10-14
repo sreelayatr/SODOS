@@ -109,9 +109,9 @@ export function Home() {
     <div className="page storefront">
       {current && (
         <section className="campaign" aria-roledescription="carousel" aria-label="Campaign">
-          <DressImage src={current.image} alt="" />
-          <p className="side-kicker">{current.kicker}</p>
-          <div className="hero-bottom">
+          <DressImage key={current.image} src={current.image} alt="" />
+          <p key={current.kicker} className="side-kicker">{current.kicker}</p>
+          <div key={`${current.left}-${current.right}`} className="hero-bottom">
             <span>{current.left}</span>
             <span>{current.right}</span>
           </div>
@@ -132,8 +132,8 @@ export function Home() {
         <p className="kicker">Shop by</p>
         <h2>Category</h2>
         <div className="cat-grid">
-          {tiles.map((item) => (
-            <button key={item.label} className="cat-tile" type="button" onClick={() => pickTab(item.tab)}>
+          {tiles.map((item, index) => (
+            <button key={item.label} className="cat-tile" type="button" style={{ animationDelay: `${index * 70}ms` }} onClick={() => pickTab(item.tab)}>
               <span>
                 {item.label}
                 {item.badge && <em>{item.badge}</em>}

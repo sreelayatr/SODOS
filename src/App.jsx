@@ -38,6 +38,7 @@ export default function App() {
   return (
     <StoreProvider>
       <BrowserRouter>
+        <img className="paper-texture" src="/paper-texture.png" alt="" aria-hidden="true" />
         <Toaster />
         <Routes>
           <Route path="login" element={<Login />} />
