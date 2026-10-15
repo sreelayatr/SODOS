@@ -166,41 +166,46 @@ export function Home() {
 
       <section className="trend" id="shop">
         <h2>Trending</h2>
-        <div className="trend-tabs" role="tablist" aria-label="Categories">
-          {TABS.map((item) => (
-            <button key={item.id} className={item.id === tab ? 'on' : ''} type="button" onClick={() => setTab(item.id)}>
-              {item.label}
-            </button>
-          ))}
+        <div className="trend-layout">
+          <aside className="desk-filters" aria-label="Filter clothing">
+            <p className="filter-label">Category</p>
+            <div className="trend-tabs" role="tablist" aria-label="Categories">
+              {TABS.map((item) => (
+                <button key={item.id} className={item.id === tab ? 'on' : ''} type="button" onClick={() => setTab(item.id)}>
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <label className={searching ? 'trend-search open' : 'trend-search'}>
+              <span className="sr">Search clothing</span>
+              <input id="shop-search" value={query} placeholder="Search" onChange={(event) => setQuery(event.target.value)} />
+            </label>
+            {size && (
+              <p className="size-note">
+                Size {size}
+                <button type="button" onClick={() => setSize('')}>
+                  Clear
+                </button>
+              </p>
+            )}
+          </aside>
+          <div className="trend-main">
+            {visible.length === 0 ? (
+              <div className="empty">
+                <h2>No items match that search.</h2>
+                <button className="btn ghost" type="button" onClick={() => { setQuery(''); setTab('All'); setSize(''); }}>
+                  Clear filters
+                </button>
+              </div>
+            ) : (
+              <div className="grid">
+                {visible.map((product) => (
+                  <ProductCard key={product.id} product={product} onAdd={onAdd} swatches={products} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        {searching && (
-          <label className="trend-search">
-            <span className="sr">Search clothing</span>
-            <input id="shop-search" value={query} placeholder="Search" autoFocus onChange={(event) => setQuery(event.target.value)} />
-          </label>
-        )}
-        {size && (
-          <p className="size-note">
-            Size {size}
-            <button type="button" onClick={() => setSize('')}>
-              Clear
-            </button>
-          </p>
-        )}
-        {visible.length === 0 ? (
-          <div className="empty">
-            <h2>No items match that search.</h2>
-            <button className="btn ghost" type="button" onClick={() => { setQuery(''); setTab('All'); setSize(''); }}>
-              Clear filters
-            </button>
-          </div>
-        ) : (
-          <div className="grid">
-            {visible.map((product) => (
-              <ProductCard key={product.id} product={product} onAdd={onAdd} swatches={products} />
-            ))}
-          </div>
-        )}
       </section>
 
       {sizesOpen && (
