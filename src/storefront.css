@@ -31,11 +31,13 @@ html, body {
   background-position: center;
 }
 .site {
+  width: 100%;
   max-width: 480px;
   margin: 0 auto;
   min-height: 100vh;
   background: transparent;
   position: relative;
+  overflow-x: clip;
 }
 .site-header {
   position: sticky;
@@ -45,7 +47,7 @@ html, body {
 }
 .header-inner {
   height: 58px;
-  padding: 0 18px;
+  padding: 0 clamp(14px, 3.5vw, 18px);
 }
 .wordmark {
   display: flex;
@@ -392,39 +394,122 @@ html, body {
 }
 .size-picks button.on { background: #111; color: #fff; border-color: #111; }
 
+/* Tablet: leave the phone shell so mid-size screens fill the viewport */
+@media (min-width: 640px) {
+  .site { max-width: min(840px, 100%); }
+  .header-inner { height: 72px; padding: 0 clamp(20px, 4vw, 32px); }
+  .site-header .header-logo { width: 176px; height: 56px; }
+  .campaign {
+    height: clamp(480px, 78svh, 720px);
+    min-height: 480px;
+  }
+  .shop-by .kicker,
+  .shop-by h2 { margin-left: clamp(16px, 3vw, 28px); margin-right: clamp(16px, 3vw, 28px); }
+  .shop-by h2 { font-size: clamp(30px, 4vw, 40px); }
+  .cat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cat-tile { min-height: 0; padding: 16px 10px 14px; }
+  .cat-tile img,
+  .cat-tile .ph {
+    width: min(100%, 220px);
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .cat-tile span { font-size: 12px; }
+  .size-banner {
+    grid-template-columns: 1fr minmax(160px, 240px) 1fr;
+    min-height: 160px;
+  }
+  .size-banner img,
+  .size-banner .ph {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+  .size-banner strong { font-size: 16px; }
+  .mid-banner { height: clamp(280px, 48vh, 420px); }
+  .trend { padding: 28px clamp(16px, 3vw, 28px) 96px; }
+  .trend > h2 { margin: 0 0 12px; font-size: clamp(28px, 3.5vw, 36px); }
+  .trend-tabs { padding: 0; }
+  .storefront .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 14px;
+    padding: 14px 0 0;
+  }
+  .tabbar { width: min(520px, calc(100% - 24px)); }
+  .site .wrap { width: min(100%, calc(100% - 32px)); }
+  .site .product,
+  .site .cart-layout,
+  .site .check {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+
+/* Desktop / laptop */
 @media (min-width: 900px) {
   body { background-color: var(--wash); }
-  .site { max-width: none; }
-  .header-inner { height: 96px; padding: 0 48px; }
-  .site-header .header-logo { width: 188px; height: 62px; }
+  .site {
+    max-width: min(1440px, 100%);
+    padding: 0;
+  }
+  .header-inner {
+    height: clamp(76px, 8vw, 96px);
+    padding: 0 clamp(28px, 4vw, 56px);
+  }
+  .site-header .header-logo {
+    width: clamp(168px, 14vw, 188px);
+    height: clamp(54px, 4.5vw, 62px);
+  }
   .site-header .header-actions a.desktop-only { display: inline-flex; }
   .tabbar { display: none; }
   .campaign {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     width: 100%;
-    height: calc(100vh - 86px);
-    min-height: 560px;
-    max-height: 920px;
-    background: transparent;
+    height: min(720px, 72svh, 56.25vw);
+    min-height: 420px;
+    max-height: none;
+    aspect-ratio: auto;
+    background: #111;
     overflow: hidden;
   }
   .campaign img,
   .campaign .ph {
-    width: auto;
+    width: 100%;
     height: 100%;
-    max-width: 100%;
-    object-fit: contain;
+    max-width: none;
+    object-fit: cover;
     object-position: center center;
   }
-  .side-kicker { right: 24px; font-size: 22px; max-width: 160px; color: #111; }
-  .hero-bottom { left: 24px; right: 24px; bottom: 28px; font-size: clamp(32px, 4vw, 56px); color: #111; }
-  .campaign-arrow { color: #111; }
+  .side-kicker {
+    right: clamp(20px, 3vw, 40px);
+    font-size: clamp(16px, 1.6vw, 22px);
+    max-width: 160px;
+    color: var(--gold);
+  }
+  .hero-bottom {
+    left: clamp(20px, 3vw, 40px);
+    right: clamp(20px, 3vw, 40px);
+    bottom: clamp(20px, 3vw, 32px);
+    font-size: clamp(28px, 3.2vw, 56px);
+    color: #fff;
+  }
+  .campaign-arrow { color: #fff; }
+  .shop-by { padding-top: 28px; }
+  .shop-by .kicker,
+  .shop-by h2 { margin-left: clamp(28px, 4vw, 56px); margin-right: clamp(28px, 4vw, 56px); }
+  .cat-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    max-width: 100%;
+  }
   .cat-tile { min-height: 0; }
+  .cat-tile:nth-child(3n) { border-right: 1px solid rgba(0, 0, 0, 0.14); }
+  .cat-tile:last-child { border-right: 0; }
   .cat-tile img,
   .cat-tile .ph {
-    width: min(100%, 340px);
+    width: min(100%, 280px);
     height: auto;
     aspect-ratio: 3 / 4;
     object-fit: contain;
@@ -432,7 +517,10 @@ html, body {
     background: #fff;
   }
   .cat-tile span { font-size: 14px; }
-  .size-banner { grid-template-columns: 1fr minmax(220px, 340px) 1fr; min-height: 0; }
+  .size-banner {
+    grid-template-columns: 1fr minmax(180px, min(28vw, 340px)) 1fr;
+    min-height: 0;
+  }
   .size-banner img,
   .size-banner .ph {
     width: 100%;
@@ -442,34 +530,33 @@ html, body {
     object-position: center;
     background: #fff;
   }
-  .size-banner strong { font-size: 22px; }
+  .size-banner strong { font-size: clamp(16px, 1.8vw, 22px); }
   .mid-banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     width: 100%;
-    height: min(72vh, 760px);
-    background: transparent;
+    height: clamp(360px, 52vh, 620px);
+    background: #111;
     overflow: hidden;
   }
   .mid-banner img,
   .mid-banner .ph {
-    width: auto;
+    width: 100%;
     height: 100%;
-    max-width: 100%;
-    object-fit: contain;
+    max-width: none;
+    object-fit: cover;
     object-position: center center;
-    opacity: 1;
+    opacity: 0.88;
   }
-  .trend { padding: 36px 40px 80px; }
+  .mid-banner .hero-bottom { color: #fff; }
+  .trend { padding: clamp(28px, 3vw, 40px) clamp(28px, 4vw, 56px) 80px; }
   .trend > h2 { margin: 0 0 18px; }
   .trend-layout {
     display: grid;
-    grid-template-columns: 200px minmax(0, 1fr);
-    gap: 12px 40px;
+    grid-template-columns: minmax(160px, 200px) minmax(0, 1fr);
+    gap: 12px clamp(24px, 3vw, 40px);
     align-items: start;
   }
-  .desk-filters { position: sticky; top: 116px; }
+  .desk-filters { position: sticky; top: calc(clamp(76px, 8vw, 96px) + 20px); }
   .filter-label {
     display: block;
     margin: 0 0 8px;
@@ -501,11 +588,94 @@ html, body {
   .desk-filters .size-note { margin: 14px 0 0; }
   .storefront .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 32px 18px;
+    gap: clamp(22px, 2.5vw, 32px) clamp(12px, 1.5vw, 18px);
     padding: 0;
   }
+  .site .wrap { width: min(100%, calc(100% - clamp(40px, 6vw, 80px))); }
+  .site .product,
+  .site .cart-layout,
+  .site .check {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(24px, 3vw, 48px);
+    align-items: start;
+  }
+  .site .product > *,
+  .site .cart-layout > *,
+  .site .check > *,
+  .site .details,
+  .site .gallery {
+    min-width: 0;
+  }
+  .site .product h1 {
+    font-size: clamp(1.85rem, 3.2vw, 3.1rem);
+    line-height: 1.02;
+    overflow-wrap: anywhere;
+  }
+  .site .gallery img,
+  .site .gallery .ph {
+    width: 100%;
+    height: auto;
+    max-height: min(72vh, 680px);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .site .footer-grid {
+    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  }
+  .site .line,
+  .site .order-row {
+    grid-template-columns: 92px minmax(0, 1fr) auto;
+  }
 }
-@media (min-width: 1280px) {
+
+/* Wide desktop */
+@media (min-width: 1200px) {
+  .site { max-width: min(1520px, 100%); }
+  .storefront .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .cat-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
+/* Ultrawide: keep content readable, don't stretch forever */
+@media (min-width: 1600px) {
+  .site { max-width: 1600px; }
+  .header-inner { padding-left: 64px; padding-right: 64px; }
+  .trend { padding-left: 64px; padding-right: 64px; }
+  .shop-by .kicker,
+  .shop-by h2 { margin-left: 64px; margin-right: 64px; }
+}
+
+/* Short landscape / laptop lids */
+@media (min-width: 900px) and (max-height: 700px) {
+  .campaign {
+    height: min(420px, calc(100svh - 80px));
+    min-height: 320px;
+  }
+  .mid-banner { height: min(320px, 48vh); }
+  .header-inner { height: 72px; }
+  .desk-filters { top: 92px; }
+}
+
+/* Beat older index.css storefront rules that fight this layout */
+@media (max-width: 639px) {
+  .storefront .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .cat-tile {
+    flex: none;
+    min-height: 168px;
+  }
+}
+@media (min-width: 640px) and (max-width: 1199px) {
+  .storefront .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
   .storefront .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
